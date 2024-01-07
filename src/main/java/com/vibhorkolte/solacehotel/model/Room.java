@@ -8,9 +8,6 @@ import java.util.List;
 * @author Vibhor Kolte
 * */
 public class Room {
-    public Room() {
-        this.bookings = new ArrayList<>();  // to handle null-pointer exception
-    }
 
     private Long id;
     private String roomType;

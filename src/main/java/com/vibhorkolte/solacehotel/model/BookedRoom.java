@@ -1,8 +1,6 @@
 package com.vibhorkolte.solacehotel.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +14,34 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookedRoom {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
+
+    @Column(name = "check_In")
     private LocalDate checkInDate;
+
+    @Column(name = "check_Out")
     private LocalDate checkOutDate;
+
+    @Column(name = "guest_FullName")
     private String guestFullName;
-    private String guestMail;
+
+    @Column(name = "guest_Email")
+    private String guestEmail;
+
+    @Column(name = "adults")
+    private int numOfAdults;
+    @Column(name = "kids")
+    private int numOfKids;
+    @Column(name = "total_Guests")
+    private int totalNumOfGuests;
+
+    @Column(name = "confirmation_Code")
+    private String bookingConfirmationCode;
+
+    private Room room;
 
     public void setNumOfAdults(int numOfAdults) {
         this.numOfAdults = numOfAdults;
@@ -32,16 +53,9 @@ public class BookedRoom {
         calculateTotalNumOfGuests();    // recalculate when numOfKids changed
     }
 
-    private int numOfAdults;
-
     public void setBookingConfirmationCode(String bookingConfirmationCode) {
         this.bookingConfirmationCode = bookingConfirmationCode;
     }
-
-    private int numOfKids;
-    private int totalNumOfGuests;
-    private String bookingConfirmationCode;
-    private Room room;
 
     public void calculateTotalNumOfGuests(){
         this.totalNumOfGuests = this.numOfAdults + this.numOfKids;
